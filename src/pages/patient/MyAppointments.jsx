@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { getMyAppointments, cancelAppointment } from "../../api/appointment.api";
+import { getMyAppointments } from "../../api/patientAppointments.api";
 
 export default function MyAppointments() {
 
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [cancelId, setCancelId] = useState(null);
 
   useEffect(() => {
     loadAppointments();
@@ -16,8 +15,7 @@ export default function MyAppointments() {
     try {
       setLoading(true);
       const res = await getMyAppointments();
-      const list = res.data || res;
-      setAppointments(list);
+      setAppointments(res.data || res);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -25,64 +23,54 @@ export default function MyAppointments() {
     }
   };
 
-  const handleCancel = async (id) => {
-    if (!confirm("Cancel this appointment?")) return;
-
-    try {
-      setCancelId(id);
-      await cancelAppointment(id);
-      await loadAppointments();
-    } catch (e) {
-      alert(e.message);
-    } finally {
-      setCancelId(null);
-    }
-  };
-
-  if (loading) return <p>Loading appointments...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">
-        My appointments
+    <div className="space-y-6">
+
+      <h1 className="text-2xl font-bold">
+        My Appointments
       </h1>
 
       {appointments.length === 0 && (
-        <p>No appointments found</p>
+        <p className="text-sm text-gray-500">
+          No appointments found
+        </p>
       )}
 
       <div className="space-y-4">
-        {appointments.map((a) => (
+        {appointments.map(a => (
           <div
             key={a._id}
-            className="bg-white rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+            className="bg-white border rounded-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
           >
             <div>
               <p className="font-semibold">
-                Dr. {a.doctor?.name}
+                {a.doctor?.name}
               </p>
+
               <p className="text-sm text-gray-600">
-                {new Date(a.startTime).toLocaleDateString()}{" "}
-                {new Date(a.startTime).toLocaleTimeString()}
-              </p>
-              <p className="text-xs text-gray-500">
-                Status: {a.status}
+                {new Date(a.startTime).toLocaleString()} -{" "}
+                {new Date(a.endTime).toLocaleTimeString()}
               </p>
             </div>
 
-            {a.status === "BOOKED" && (
-              <button
-                disabled={cancelId === a._id}
-                onClick={() => handleCancel(a._id)}
-                className="px-4 py-2 text-sm rounded-lg border border-red-500 text-red-600 hover:bg-red-50 disabled:opacity-60"
+            <div>
+              <span
+                className={`text-xs px-3 py-1 rounded-full
+                ${a.status === "APPROVED" && "bg-green-100 text-green-700"}
+                ${a.status === "BOOKED" && "bg-yellow-100 text-yellow-700"}
+                ${a.status === "CANCELLED" && "bg-red-100 text-red-700"}
+              `}
               >
-                {cancelId === a._id ? "Cancelling..." : "Cancel"}
-              </button>
-            )}
+                {a.status}
+              </span>
+            </div>
           </div>
         ))}
       </div>
+
     </div>
   );
 }
