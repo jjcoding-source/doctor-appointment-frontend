@@ -17,6 +17,7 @@ import PatientDashboard from "./pages/PatientDashboard";
 
 import DoctorList from "./pages/patient/DoctorList";
 import DoctorSlots from "./pages/patient/DoctorSlots";
+import MyAppointments from "./pages/patient/MyAppointments";
 
 export const router = createBrowserRouter([
   // public
@@ -64,7 +65,8 @@ export const router = createBrowserRouter([
        children: [
          { path: "/patient", element: <PatientDashboard /> },
          { path: "/patient/doctors", element: <DoctorList /> },
-         { path: "/patient/doctors/:doctorId/slots", element: <DoctorSlots /> }
+         { path: "/patient/doctors/:doctorId/slots", element: <DoctorSlots /> },
+         { path: "/patient/appointments", element: <MyAppointments /> }
       ]
     }
    ]
