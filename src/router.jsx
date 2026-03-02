@@ -15,6 +15,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import PatientDashboard from "./pages/PatientDashboard";
 
+import DoctorList from "./pages/patient/DoctorList";
+
 export const router = createBrowserRouter([
   // public
   {
@@ -58,10 +60,11 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <PatientLayout />,
-        children: [
-          { path: "/patient", element: <PatientDashboard /> }
-        ]
-      }
-    ]
+       children: [
+         { path: "/patient", element: <PatientDashboard /> },
+         { path: "/patient/doctors", element: <DoctorList /> }
+      ]
+    }
+   ]
   }
 ]);
