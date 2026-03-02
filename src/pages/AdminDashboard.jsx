@@ -1,8 +1,18 @@
+import { Link } from "react-router-dom";
+
 export default function AdminDashboard() {
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-      <p className="text-gray-600 mt-2">Temporary page</p>
+    <div className="space-y-4">
+      <h1 className="text-xl font-semibold">
+        Admin Dashboard
+      </h1>
+
+      <Link
+        to="/admin/doctors"
+        className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg"
+      >
+        Manage Doctors
+      </Link>
     </div>
   );
 }

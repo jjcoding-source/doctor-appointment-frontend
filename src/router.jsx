@@ -19,6 +19,7 @@ import DoctorList from "./pages/patient/DoctorList";
 import DoctorSlots from "./pages/patient/DoctorSlots";
 import MyAppointments from "./pages/patient/MyAppointments";
 import DoctorAppointments from "./pages/doctor/DoctorAppointments";
+import AdminDoctors from "./pages/admin/AdminDoctors";
 
 export const router = createBrowserRouter([
   // public
@@ -38,7 +39,8 @@ export const router = createBrowserRouter([
       {
         element: <AdminLayout />,
         children: [
-          { path: "/admin", element: <AdminDashboard /> }
+          { path: "/admin", element: <AdminDashboard /> },
+          { path: "/admin/doctors", element: <AdminDoctors /> }
         ]
       }
     ]
