@@ -13,6 +13,14 @@ export default function AdminDashboard() {
       >
         Manage Doctors
       </Link>
+
+      <Link
+        to="/admin/slots"
+        className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg"
+      >
+        Manage Slots
+      </Link>
+      
     </div>
   );
 }
