@@ -7,6 +7,13 @@ export default function PatientDashboard() {
         Patient Dashboard
       </h1>
 
+      <Link
+        to="/patient/book"
+        className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg"
+      >
+        Book appointment
+      </Link>
+
       <div className="flex gap-4">
         <Link
           to="/patient/doctors"
