@@ -2,9 +2,14 @@ import { Outlet } from "react-router-dom";
 
 export default function PatientLayout() {
   return (
-    <div className="min-h-screen">
-      {}
-      <Outlet />
+    <div className="min-h-screen bg-gray-50">
+      <div className="px-6 py-4 border-b bg-white font-semibold">
+        Patient Dashboard
+      </div>
+
+      <main className="p-6">
+        <Outlet />
+      </main>
     </div>
   );
 }
